@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Principal</title>
+    </head>
+    <body>
+       <h1>Tela de cadastro</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Guardar</button>
+        <a href="{% url 'page.views.principal' %}"><input type="button" name="botao-ok" value="Voltar" ></a>
+    </form>
+    </body>
+</html>

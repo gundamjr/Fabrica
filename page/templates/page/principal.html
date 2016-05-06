@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Principal</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+ 
+    </head>
+    <body>
+       <h1>Logado com sucesso</h1>
+  <a href="{% url 'page.views.cadastro' %}"><input type="button" name="botao-ok" value="Cadastrar" ></a>
+
+{% for post in professores %}
+    <div>
+    <a class="btn btn-default" href="{% url 'page.views.editar' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'page.views.excluir' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        <p><b>Nome:</b>{{ post.nome }}   <b>Matricula:</b>{{post.matricula}} <b>Email:</b> {{ post.email }}</p>
+    </div>
+{% endfor %}
+    </body>
+</html>
