@@ -3,19 +3,116 @@
     <head>
         <title>Principal</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
- 
+
     </head>
     <body>
        <h1>Logado com sucesso</h1>
-  <a href="{% url 'page.views.cadastro' %}"><input type="button" name="botao-ok" value="Cadastrar" ></a>
+  <a href="{% url 'page.views.cadastro' %}"><input type="button"  value="Cadastrar Professor" ></a>
+  
+  <a href="{% url 'page.views.cadastro_curso' %}"><input type="button"  value="Cadastrar Curso" ></a>
 
+  <a href="{% url 'page.views.cadastro_Prova' %}"><input type="button"  value="Cadastrar Prova" ></a>
+
+  <a href="{% url 'django.contrib.auth.views.logout' %}"><input type="button"  value="sair" ></a>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <table border="1px" style="al">
+  <thead>
+  <tr>
+  	<th colspan = "4" style="text-align: center;">Professores</th>
+  </tr>
+  <tr>
+  	<th>Ações</th>
+  	<th>Nome</th>
+  	<th>Matricula</th>
+  	<th>Email</th>
+  </tr>
+  </thead>
+  <tbody>
 {% for post in professores %}
+    <tr>
     <div>
-    <a class="btn btn-default" href="{% url 'page.views.editar' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <td>
+     <a class="btn btn-default" href="{% url 'page.views.editar' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
     <a class="btn btn-default" href="{% url 'page.views.excluir' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-        <p><b>Nome:</b>{{ post.nome }}   <b>Matricula:</b>{{post.matricula}} <b>Email:</b> {{ post.email }}</p>
+    </td>
+        <td>{{ post.nome }}</td>   
+        <td>{{post.matricula}}</td>
+        <td>{{ post.email }}</td>
+
     </div>
+    </tr>
 {% endfor %}
+</tbody>
+</table>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+<table border="1px" style="al">
+  <thead>
+  <tr>
+    <th colspan = "4" style="text-align: center;">Curso</th>
+  </tr>
+  <tr>
+    <th>Ações</th>
+    <th>Nome</th>
+    <th>Turma</th>
+  </tr>
+  </thead>
+  <tbody>
+{% for curso in cursos %}
+    <tr>
+    <div>
+    <td>
+     <a class="btn btn-default" href="{% url 'page.views.editar_Curso' pk=curso.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'page.views.excluir_Curso' pk=curso.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
+        <td>{{ curso.nome }}</td>   
+        <td>{{ curso.turma}}</td>
+
+    </div>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+<table border="1px" style="al">
+  <thead>
+  <tr>
+    <th colspan = "4" style="text-align: center;">Prova</th>
+  </tr>
+  <tr>
+    <th>Ações</th>
+    <th>Data Prova</th>
+    <th>Data Limite</th>
+    <th>Estagio</th>
+    <th>Id</th>
+  </tr>
+  </thead>
+  <tbody>
+{% for prova in provas %}
+    <tr>
+    <div>
+    <td>
+     <a class="btn btn-default" href="{% url 'page.views.editar_Prova' pk=prova.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'page.views.excluir_Prova' pk=prova.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+    </td>
+        <td>{{ prova.data_prova }}</td>   
+        <td>{{ prova.data_limite}}</td>
+        <td>{{ prova.estagio}}</td>
+        <td>{{ prova.Prova_id_status.data_devolucao}}</td>
+    </div>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
     </body>
 </html>

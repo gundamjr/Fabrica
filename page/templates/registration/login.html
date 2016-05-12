@@ -12,52 +12,94 @@
 		<!-- chamando a folha de estilo-->
 		<link rel="stylesheet" type="text/css" href= {% static "css/style.css" %}>
 
+
+
+
+
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+
 	</head>
 
 
 	<body id="imgback">
 
-		<!--começo do header -->
-		<header>
-			
-			<div class="imglogo">
+		<div class="container-desktop">
+
+			<!--começo do header -->
+			<header>
 				
-				<img src= {% static "images/logo.png" %}>
+				<div class="imglogo">
+					
+					<img src= {% static "images/logo.png" %}>
+
+				</div>
+
+			</header>
+			<!--fim do header -->
+
+			<!--tela de login -->
+			<div class="container">
+		
+
+				<form action="{% url 'django.contrib.auth.views.login' %}" method="post" name="login" class="form-signin">
+				{% csrf_token %}
+					<h3 id="cortexto" class="heading">Controle de Provas</h3>
+					
+
+
+
+
+
+					<div class="form-group">
+					     <input type="login" autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }}>
+
+					</div>
+								
+					<div class="form-group">
+						<input type="password" required="required" class="form-control" id="inputPassword" placeholder="Digite sua senha" {{ form.password }}>
+					</div>
+									  
+					<button id="button" onclick="enviardados()" type="submit" class="btn btn-warning btn-lg">Entrar</button>
+
+
+				</form>
+					{% if form.errors %}
+						<div class="alert alert-warning" >
+ 				 		<strong>Erro! </strong>Login e senha incorretos.
+ 				 		</div>
+			{% endif %}
+
 
 			</div>
-
-		</header>
-		<!--fim do header -->
-
-		<!--tela de login -->
-		<div class="container">
-
-			<form class="form-signin" method="post"  action="{% url 'django.contrib.auth.views.login' %}">
-			{% csrf_token %}
-				<h3 id="cortexto" class="heading">Controle de Provas</h3>
-
-				<div class="form-group">
-					<input type="login" class="form-control" id="inputPassword" placeholder="Digite seu login" name='username'>
-				</div>
-							
-				<div class="form-group">
-					<input type="password" class="form-control" id="inputPassword" placeholder="Digite sua senha" name='password'>
-				</div>
-
-
-								  
-				<button id="button" type="submit" class="btn btn-warning btn-lg">Entrar</button>
-		
-			</form>
+			<!-- fim da tela login -->
 
 		</div>
-		<!-- fim da tela login -->
 						
 	</body>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    	<!-- chamando JS -->
-   	<script src= {% static "js/bootstrap.min.js" %}></script>
+   	<script src="js/bootstrap.js"></script>
+   	<script type="text/javascript">
+
+   		function enviardados(){
+ 			document.getElementById("alert").style.display = "block";
+			}
+ 		
+ 		function ocultAlert(){
+ 			document.getElementById("alert").style.display = "none";
+ 		}
+		
+		
+
+   	</script>
 
 </html>
