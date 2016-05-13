@@ -7,8 +7,12 @@
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         {{ form2.as_p }}
+
         <button type="submit" class="save btn btn-default">Guardar</button>
         <a href="{% url 'page.views.principal' %}"><input type="button" name="botao-ok" value="Voltar" ></a>
+
+
     </form>
+    <form></form>
     </body>
 </html>

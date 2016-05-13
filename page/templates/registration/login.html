@@ -19,7 +19,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
@@ -28,7 +28,7 @@
 	</head>
 
 
-	<body id="imgback">
+	<body id="imgback" onload="ocultAlert()">
 
 		<div class="container-desktop">
 
@@ -46,36 +46,37 @@
 
 			<!--tela de login -->
 			<div class="container">
-		
-
-				<form action="{% url 'django.contrib.auth.views.login' %}" method="post" name="login" class="form-signin">
+					
+				<form action="{% url 'django.contrib.auth.views.login' %} " method="post" name="login" class="form-signin">
 				{% csrf_token %}
+
 					<h3 id="cortexto" class="heading">Controle de Provas</h3>
 					
 
+					<div class="alert alert-warning" id="alert" style="display: none;">
+ 				 		<strong>Erro! </strong>Login e senha incorretos.
+					</div>
+					{% if form.errors %}
+					<div class="form-group">
+					     <input type="login"  onfocus ="enviardados()" onkeypress ="ocultAlert()" onclick="ocultAlert()"autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }}>
 
-
-
+					</div>	
+					{% else %}
 
 					<div class="form-group">
-					     <input type="login" autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }}>
+					     <input type="login" onclick="ocultAlert()" autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }} >
 
 					</div>
+					{% endif %}
 								
 					<div class="form-group">
-						<input type="password" required="required" class="form-control" id="inputPassword" placeholder="Digite sua senha" {{ form.password }}>
+						<input type="password" onkeypress ="ocultAlert()" required="required" class="form-control" id="inputPassword" placeholder="Digite sua senha" {{ form.password }} >
 					</div>
 									  
-					<button id="button" onclick="enviardados()" type="submit" class="btn btn-warning btn-lg">Entrar</button>
-
+					<button id="button"    type="submit" class="btn btn-warning btn-lg">Entrar</button>
 
 				</form>
-					{% if form.errors %}
-						<div class="alert alert-warning" >
- 				 		<strong>Erro! </strong>Login e senha incorretos.
- 				 		</div>
-			{% endif %}
-
+				
 
 			</div>
 			<!-- fim da tela login -->
@@ -84,12 +85,12 @@
 						
 	</body>
 
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    	<!-- chamando JS -->
-   	<script src="js/bootstrap.js"></script>
+   	<script src={% static "js/bootstrap.js" %}></script>
    	<script type="text/javascript">
-
    		function enviardados(){
  			document.getElementById("alert").style.display = "block";
 			}
@@ -97,8 +98,6 @@
  		function ocultAlert(){
  			document.getElementById("alert").style.display = "none";
  		}
-		
-		
 
    	</script>
 

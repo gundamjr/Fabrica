@@ -1,4 +1,5 @@
 {% load staticfiles %}
+
 <html>
     <head>
         <title>Principal</title>
@@ -13,10 +14,10 @@
 
   <a href="{% url 'page.views.cadastro_Prova' %}"><input type="button"  value="Cadastrar Prova" ></a>
 
+  <a href="{% url 'page.views.cadastro_Disciplina' %}"><input type="button"  value="Cadastrar Disciplina" ></a>
+
+
   <a href="{% url 'django.contrib.auth.views.logout' %}"><input type="button"  value="sair" ></a>
-  <br/>
-  <br/>
-  <br/>
   <br/>
   <table border="1px" style="al">
   <thead>
@@ -48,9 +49,6 @@
 </tbody>
 </table>
   <br/>
-  <br/>
-  <br/>
-  <br/>
 <table border="1px" style="al">
   <thead>
   <tr>
@@ -78,10 +76,6 @@
 {% endfor %}
 </tbody>
 </table>
-
-  <br/>
-  <br/>
-  <br/>
   <br/>
 <table border="1px" style="al">
   <thead>
@@ -93,7 +87,6 @@
     <th>Data Prova</th>
     <th>Data Limite</th>
     <th>Estagio</th>
-    <th>Id</th>
   </tr>
   </thead>
   <tbody>
@@ -107,7 +100,6 @@
         <td>{{ prova.data_prova }}</td>   
         <td>{{ prova.data_limite}}</td>
         <td>{{ prova.estagio}}</td>
-        <td>{{ prova.Prova_id_status.data_devolucao}}</td>
     </div>
     </tr>
 {% endfor %}

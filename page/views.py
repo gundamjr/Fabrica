@@ -13,6 +13,8 @@ from .models import Disciplina
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
+
+
 @login_required
 def principal(request):
 	professores=Professor.objects.all()
@@ -86,17 +88,12 @@ def cadastro_Prova(request):
 	cad=" Prova"
 	if request.method == "POST":
 		form = PostProva(request.POST)
-		form2= PostStatus(request.POST)
-		if form.is_valid() and form2.is_valid():
-			post2=form2.save(commit=True)
-			post = form.save(commit=False)
-			post.Prova_id_status=post2
-			post.save()
+		if form.is_valid():
+			post = form.save(commit=True)
 			return redirect('page.views.principal')
 	else:
 		form = PostProva()
-		form2= PostStatus()
-	return render(request, 'page/cadastro.html', {'form': form,'form2':form2,'cad':cad})
+	return render(request, 'page/cadastro.html', {'form': form,'cad':cad})
 
 
 @login_required

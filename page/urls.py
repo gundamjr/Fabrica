@@ -10,6 +10,10 @@ urlpatterns = [
     url(r'^post/(?P<pk>[0-9]+)/editar_Prova/$', views.editar_Prova, name='editar_Prova'),
     url(r'^post/(?P<pk>[0-9]+)/excluir_Prova/$', views.excluir_Prova, name='excluir_Prova'),
     url(r'^post/(?P<pk>[0-9]+)/editar/$', views.editar, name='editar'),
+    
+    url(r'^cadastro_Disciplina/new/$', views.cadastro_Disciplina, name='cadastro_disciplina'),
+    url(r'^post/(?P<pk>[0-9]+)/editar_Disciplina/$', views.editar_Disciplina, name='editar_disciplina'),
+    url(r'^post/(?P<pk>[0-9]+)/excluir_Disciplina/$', views.excluir_Disciplina, name='excluir_disciplina'),
 
     url(r'^post/(?P<pk>[0-9]+)/excluir/$', views.excluir, name='excluir'),
     url(r'^cadastro_curso/new/$', views.cadastro_curso, name='cadastro_curso'),
