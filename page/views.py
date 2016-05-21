@@ -5,11 +5,15 @@ from .forms import PostCurso
 from .forms import PostProva
 from .forms import PostStatus
 from .forms import PostDisciplina
+from .forms import PostDisciplina_Professor
+from .forms import PostDisciplina_Curso
 from .models import Professor
 from .models import status
 from .models import Curso
 from .models import Prova
 from .models import Disciplina
+from .models import Disciplina_Profesor
+from .models import Disciplina_Curso
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
@@ -20,19 +24,26 @@ def principal(request):
 	professores=Professor.objects.all()
 	cursos=Curso.objects.all()
 	provas=Prova.objects.all()
-	return render(request,'page/principal.html',{'professores':professores,'provas':provas,'cursos':cursos})
+	Disciplinas_professor=Disciplina_Profesor.objects.all()
+	disciplinas=Disciplina.objects.all()
+	disciplinas_cursos=Disciplina_Curso.objects.all()
+	return render(request,'page/principal.html',{'disciplinas_cursos':disciplinas_cursos,'disciplinas':disciplinas,'Disciplinas_professor':Disciplinas_professor,'professores':professores,'provas':provas,'cursos':cursos})
 
 @login_required
 def cadastro(request):
-	cad=" Professor"
+	disciplinas=Disciplina.objects.all()	
 	if request.method == "POST":
 		form = PostForm(request.POST)
+		form2 = PostDisciplina_Professor(request.POST)
 		if form.is_valid():
-			post = form.save(commit=True)
+			post = form.save()
+			post2=form2.save(commit=False)
+			post2.Professor_id = post
+			post2.save()
 			return redirect('page.views.principal')
 	else:
 		form = PostForm()
-	return render(request, 'page/cadastro.html', {'form': form,'cad':cad})
+	return render(request, 'page/cadastro_professor.html', {'disciplinas':disciplinas})
 
 @login_required
 def editar(request, pk):
@@ -55,7 +66,6 @@ def excluir(request, pk):
 
 @login_required
 def cadastro_curso(request):
-	cad=" Curso"
 	if request.method=="POST":
 		form = PostCurso(request.POST)
 		if form.is_valid():
@@ -63,7 +73,7 @@ def cadastro_curso(request):
 			return redirect('page.views.principal')
 	else:
 		form=PostCurso()
-	return render (request,'page/cadastro.html',{'form':form,'cad':cad})			
+	return render (request,'page/cadastro_curso.html',{'form':form})			
 
 @login_required
 def editar_Curso(request, pk):
@@ -85,15 +95,22 @@ def excluir_Curso(request, pk):
 
 @login_required
 def cadastro_Prova(request):
-	cad=" Prova"
+	professores=Professor.objects.all()
+	cursos=Curso.objects.all()
+	provas=Prova.objects.all()
+	disciplinas=Disciplina.objects.all()
 	if request.method == "POST":
-		form = PostProva(request.POST)
+		form = PostDisciplina_Professor(request.POST)
+		form2 = PostProva(request.POST)
+		form3 = PostDisciplina_Curso(request.POST)
 		if form.is_valid():
-			post = form.save(commit=True)
+			post=form.save(commit=True)
+			post2=form2.save(commit=True)
+			post3=form3.save(commit=True)
 			return redirect('page.views.principal')
 	else:
 		form = PostProva()
-	return render(request, 'page/cadastro.html', {'form': form,'cad':cad})
+	return render(request, 'page/cadastro_Prova.html',{'professores':professores,'disciplinas':disciplinas,'form': form,'provas':provas,'cursos':cursos})
 
 
 @login_required
@@ -117,16 +134,20 @@ def excluir_Prova(request, pk):
 
 @login_required
 def cadastro_Disciplina(request):
-	cad=" Disciplina"
+	cursos=Curso.objects.all()
 	if request.method == "POST":
 		form = PostDisciplina(request.POST)
+		form2= PostDisciplina_Curso(request.POST)
 		if form.is_valid() and form2.is_valid():
 			post = form.save(commit=True)
-			post.save()
+			post2=form2.save(commit=False)
+			post2.Disciplina_id=post
+			post2.save()
 			return redirect('page.views.principal')
 	else:
 		form = PostDisciplina()
-	return render(request, 'page/cadastro.html', {'form': form,'cad':cad})
+		form2= PostDisciplina_Curso()
+	return render(request, 'page/cadastro_disciplina.html', {'form2':form2,'cursos':cursos,'form': form})
 
 
 @login_required

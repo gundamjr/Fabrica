@@ -22,13 +22,13 @@
   <table border="1px" style="al">
   <thead>
   <tr>
-  	<th colspan = "4" style="text-align: center;">Professores</th>
+    <th colspan = "4" style="text-align: center;">Professores</th>
   </tr>
   <tr>
-  	<th>Ações</th>
-  	<th>Nome</th>
-  	<th>Matricula</th>
-  	<th>Email</th>
+    <th>Ações</th>
+    <th>Nome</th>
+    <th>Matricula</th>
+    <th>Email</th>
   </tr>
   </thead>
   <tbody>
@@ -76,6 +76,7 @@
 {% endfor %}
 </tbody>
 </table>
+
   <br/>
 <table border="1px" style="al">
   <thead>
@@ -106,5 +107,78 @@
 </tbody>
 </table>
 
+<br/>
+<table border="1px" style="al">
+  <thead>
+  <tr>
+    <th colspan = "4" style="text-align: center;">Disciplina</th>
+  </tr>
+  <tr>
+    <th>Ações</th>
+    <th>Nome</th>
+    <th>Periodo</th>
+  </tr>
+  </thead>
+  <tbody>
+{% for disciplina in disciplinas %}
+    <tr>
+    <div>
+        <td>
+     <a class="btn btn-default" href="{% url 'page.views.editar_Disciplina' pk=disciplina.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href="{% url 'page.views.excluir_Disciplina' pk=disciplina.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+        </td>
+        <td>{{ disciplina.nome }}</td>   
+        <td>{{ disciplina.periodo}}</td>
+    </div>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+  <br/>
+<table border="1px" style="al">
+  <thead>
+  <tr>
+    <th colspan = "4" style="text-align: center;">Disciplina Professor</th>
+  </tr>
+  <tr>
+    <th>Professor</th>
+    <th>Disciplina</th>
+  </tr>
+  </thead>
+  <tbody>
+{% for post in Disciplinas_professor %}
+    <tr>
+    <div>
+        <td>{{ post.Professor_id.nome }}</td>   
+        <td>{{ post.Disciplina_id.nome}}</td>
+    </div>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+
+  <br/>
+<table border="1px" style="al">
+  <thead>
+  <tr>
+    <th colspan = "4" style="text-align: center;">Disciplina Professor</th>
+  </tr>
+  <tr>
+    <th>Curso</th>
+    <th>Disciplina</th>
+  </tr>
+  </thead>
+  <tbody>
+{% for post in disciplinas_cursos %}
+    <tr>
+    <div>
+        <td>{{ post.Curso_id.nome }}</td>   
+        <td>{{ post.Disciplina_id.nome}}</td>
+    </div>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
     </body>
 </html>

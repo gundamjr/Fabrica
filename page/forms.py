@@ -5,6 +5,8 @@ from .models import Curso
 from .models import Prova
 from .models import status
 from .models import Disciplina
+from .models import Disciplina_Profesor
+from .models import Disciplina_Curso
 
 class PostForm(forms.ModelForm):
 
@@ -37,7 +39,17 @@ class PostDisciplina(forms.ModelForm):
 
     class Meta:
         model = Disciplina
-        fields = ('nome', 'periodo',)
+        fields = ('nome','periodo',)
 
+class PostDisciplina_Professor(forms.ModelForm):
 
+    class Meta:
+        model = Disciplina_Profesor
+        fields = ("Disciplina_id",)
+
+class PostDisciplina_Curso(forms.ModelForm):
+
+    class Meta:
+        model = Disciplina_Curso
+        fields=('Curso_id',)
                 

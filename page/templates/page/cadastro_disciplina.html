@@ -1,0 +1,110 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <title>Cadastro</title>
+    <!-- chamando o bootstrap -->
+    <link href= {% static "css/bootstrap.min.css" %} rel="stylesheet">
+    <!-- chamando a folha de estilo-->
+    <link rel="stylesheet" type="text/css" href= {% static "css/style.css" %}>
+  </head>
+
+  <!-- container com a logo -->
+  <body  class="container-fluid" style="background-color: #241858;">
+
+    <header class="container-fluid">
+        
+      <div class="imglogo">
+          
+      <img src= {% static "images/logo.png" %}>
+      </div>
+
+    </header>
+
+
+        <div class="container">
+          <ul id="links" class="nav nav-pills">
+              <li role="presentation"><a href="#">Cadastrar</a></li>
+              <li role="presentation"><a href="#">Alterar</a></li>
+              <li role="presentation"><a href="#">Remover</a></li>
+          </ul>
+        </div>
+
+      <!-- titulo da tela -->
+      <h3 id="cortexto" style="text-align: center;">Cadastro de Disciplina</h3>
+
+      <!--Sidebar - menu lateral -->
+      
+
+        <div class="col-md-3" id="sidebar">
+            <ul style="margin-top: 5%" id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 200px;">
+               
+                <li><a href="#"><span></span>  Professor</a></li>
+                <li><a href="#"><span></span>  Consulta</a></li>
+                <li><a href="{% url 'django.contrib.auth.views.logout' %}"><span></span>  Sair</a></li>
+                
+            </ul>
+        </div>
+
+          <!--container para organizar automaticamente-->
+          <div class="container-formulario col-md-8">
+            <form method="POST" class="form-group row" id="formargin">
+            {% csrf_token %}
+              
+              <ul id="cortexto" class="inputs" style="list-style-type: none;">
+                  <li id="alm" class="col-md-3">
+                     <label for="id_subject">Nome</label>
+    				 <input id="id_subject" class="form-control" type="text" name="nome"  />   
+                  </li>
+                
+                <li id="alm" class="col-md-3">
+                    <label for="id_subject">Turma</label>
+    				<input id="id_subject" class="form-control" type="text" name="turma" maxlength="100" />
+                  </li>
+
+                <li id="alm2" class="col-md-3">
+                    <label for="exampleInputEmail1">Periodo</label>
+                    <input type="number" min="1" max="10" class="form-control" id="exampleInputEmail1" placeholder="1" name="periodo">
+                  </li>  
+                <li id="alm" class="col-md-3">
+                    <label for="exampleInputEmail1">Curso</label>
+                    <select name="Curso_id" id="hall" class="form-control" >
+                    {% for curso in cursos %}
+                      <option value="{{ curso.Curso_id }}" >{{ curso.nome  }}  {{ curso.turma }}</option>
+                    {% endfor %}
+                    </select>   
+                  </li>  
+                <li class="col-md-3">
+                  <input id="buttonajust" type="submit" class="btn btn-primary" id="exampleInputEmail1">
+                  </li>
+
+                 <li class="col-md-3">
+                  <a href="{% url 'page.views.principal' %}"><input id="buttonajust" type="button" class="btn btn-primary"  value="Voltar" ></a>
+                  </li> 
+                </ul>
+
+            </form>
+            
+          </div>
+
+      </div>
+    
+    </div>
+
+  </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- chamando JS -->
+    <script src={% static "js/bootstrap.js" %}></script>
+    <script type="text/javascript">
+      function enviardados(){
+        var nome = document.getElementById("hall1");
+          alert("Obrigado sr(a) " + nome.value + ' os seus dados foram encaminhados com sucesso');
+      }
+    </script>
+
+
+</html>

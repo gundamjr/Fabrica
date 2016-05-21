@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Curso',
             fields=[
-                ('id_curso', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
+                ('Curso_id', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
                 ('nome', models.CharField(max_length=60)),
                 ('turma', models.CharField(max_length=1)),
             ],
@@ -21,31 +21,39 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Disciplina',
             fields=[
-                ('id_disciplina', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
+                ('id_disciplina', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
                 ('nome', models.CharField(max_length=45)),
-                ('periodo', models.CharField(max_length=3, choices=[('P1', 'P1'), ('P2', 'P2'), ('P3', 'P3'), ('P4', 'P4'), ('P5', 'P5'), ('P6', 'P6'), ('P7', 'P7'), ('P8', 'P8'), ('P9', 'P9'), ('P10', 'P10')])),
+                ('periodo', models.IntegerField(null=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Disciplina_Curso',
+            fields=[
+                ('id_Disciplina_Curso', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
+                ('Curso_id', models.ForeignKey(null=True, to='page.Curso')),
+                ('Disciplina_id', models.ForeignKey(null=True, to='page.Disciplina')),
             ],
         ),
         migrations.CreateModel(
             name='Disciplina_Profesor',
             fields=[
-                ('id_Disciplina_Profesor', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
-                ('Disciplina_id', models.ForeignKey(to='page.Disciplina')),
+                ('id_Disciplina_Profesor', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
+                ('Disciplina_id', models.ForeignKey(null=True, to='page.Disciplina')),
             ],
         ),
         migrations.CreateModel(
             name='Professor',
             fields=[
-                ('id_professor', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
+                ('id_professor', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
                 ('nome', models.CharField(max_length=60)),
                 ('matricula', models.CharField(unique=True, max_length=15)),
-                ('email', models.CharField(max_length=30, blank=True)),
+                ('email', models.CharField(blank=True, max_length=30)),
             ],
         ),
         migrations.CreateModel(
             name='Prova',
             fields=[
-                ('id_prova', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
+                ('id_prova', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
                 ('data_prova', models.DateField()),
                 ('data_limite', models.DateField()),
                 ('estagio', models.IntegerField(choices=[(1, 1), (2, 2), (3, 3)])),
@@ -54,29 +62,29 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='status',
             fields=[
-                ('id_status', models.AutoField(auto_created=True, serialize=False, primary_key=True)),
+                ('id_status', models.AutoField(serialize=False, primary_key=True, auto_created=True)),
                 ('devolucao', models.BooleanField(default=False)),
-                ('data_devolucao', models.DateField()),
+                ('data_devolucao', models.DateField(null=True)),
             ],
         ),
         migrations.AddField(
             model_name='prova',
-            name='Prova_id_status',
+            name='id_status',
             field=models.ForeignKey(null=True, to='page.status'),
         ),
         migrations.AddField(
             model_name='disciplina_profesor',
             name='Professor_id',
-            field=models.ForeignKey(to='page.Professor'),
+            field=models.ForeignKey(null=True, to='page.Professor'),
         ),
         migrations.AddField(
             model_name='disciplina',
-            name='disciplina_id_prova',
+            name='id_prova',
             field=models.ForeignKey(null=True, to='page.Prova'),
         ),
         migrations.AddField(
             model_name='disciplina',
-            name='disciplina_id_status',
+            name='id_status',
             field=models.ForeignKey(null=True, to='page.status'),
         ),
     ]
