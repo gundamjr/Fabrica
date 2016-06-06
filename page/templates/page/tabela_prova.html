@@ -5,7 +5,7 @@
   <head>
 
     <meta charset="utf-8">
-    <title>Curso</title>
+    <title>Prova</title>
     <!-- chamando o bootstrap -->
     <link href= {% static "css/bootstrap.min.css" %} rel="stylesheet">
       <!-- chamando a folha de estilo-->
@@ -96,7 +96,7 @@
                   <!-- links do dropdown -->
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'page.views.cadastro_Prova' %}">Cadastrar</a></li>
-                    <li><a href="alterar_prova.html">Alterar</a></li>
+                    <li><a href="{% url 'page.views.tabela_prova' %}">Alterar</a></li>
                   </ul> <!-- dropdown menu -->
                 </li> <!-- dropdown -->               
                 <li id="links"><a href="{% url 'django.contrib.auth.views.logout' %}">Sair</a></li>
@@ -109,49 +109,62 @@
           </div>
           <!-- fim do container menu de navegação -->
 
-          <!--container do formulário e do nome da página -->
-          <div style="margin-top: 2%;" class="container">
+<div style="margin-top: 2%;" class="container">
 
               <!-- titulo da tela -->
-              <h3 id="cortexto" style="text-align: center;">Cadastrar Curso</h3>
-              
-              <form method="POST" style="margin-top: 2%;" class="form-group row" >
-              {% csrf_token %}
-                
-                              <ul id="cortexto" style="list-style-type: none;">
-    
-                    <li class="col-md-6">
-                        <label for="exampleInputEmail1">Curso</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome do curso" name="nome">
-                      </li>
-                      <li class="col-md-2">
-                      </li>
+              <h3 id="cortexto" style="text-align: center;">Alterar Prova</h3>
+
+                <div style="margin-top: 5%;" class="table-responsive">
+
+                  <table class="table table-bordered">
+
+                    <thead>
+                      
+                      
+                      <tr>
+                        <th>Professor</th>
+                        <th>Disciplina</th>
+                        <th>Período</th>
+                        <th>Estágio</th>
+                        <th>Data Prova</th>
+                        <th>Data Limite</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                                              </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for post in provas %}
+                      <tr>
+                         {% if post.Disciplina_id.id_prova != NULL %} 
+                         <td>{{ post.Professor_id.nome }}</td>   
+                         <td>{{ post.Disciplina_id.nome }}</td>
+                         <td>{{ post.Disciplina_id.periodo}}</td>
+                         <td>{{ post.Disciplina_id.id_prova.estagio }}</td>
+                         <td>{{ post.Disciplina_id.id_prova.data_prova }}</td>
+                         <td>{{ post.Disciplina_id.id_prova.data_limite}}</td>
+                          {% if post.Disciplina_id.id_status.devolucao %}
+                          <td>Entregue!</td>
+                          {% else %}
+                          <td>Não entregue!</td>
+                          {% endif %}
                           
-                      <li class="col-md-1">
-                        <label for="exampleInputEmail1">Turma</label>
-                        <select class="form-control" name="turma">
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
-                    </select> 
-                      </li> 
-                      <li class="col-md-2">
-                      </li>                           
-                      <li style="margin-top: 2.1%;" class="col-md-3">
-                      <input style="width: 100%;" type="submit" class="btn btn-primary" id="exampleInputEmail1" value="Cadastrar">
-                      </li>
-                    </ul>
+                        <td>
+                          <a href="{% url 'page.views.editar_Prova' pk=post.pk %}"><img src= {% static "images/edit.png" %} width="16" height="16" /></a>
+                                <a href="{% url 'page.views.excluir_Prova' pk=post.Disciplina_id.pk %}"><img src= {% static "images/delete.png" %} width="16" height="16" /></a>
+                              </td>
+                              {% endif%}
+                      </tr>
+                    {% endfor %}
+                    </tbody>
 
-              </form>
+                  </table>
 
-          </div>
-          <!-- fim do container formulário -->
+                </div>
+
+              </div>
 
     </div>
-    <!-- fim do container da página toda -->
-
   </body>
 
 </html>

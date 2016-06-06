@@ -16,10 +16,9 @@
 
 
 
-
 		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
@@ -28,55 +27,78 @@
 	</head>
 
 
-	<body id="imgback" onload="ocultAlert()">
+	<body id="imgback">
 
 		<div class="container-desktop">
 
-			<!--começo do header -->
-			<header>
-				
-				<div class="imglogo">
-					
-					<img src= {% static "images/logo.png" %}>
+			<!-- container da header com logo -->
+			<header class="container-fluid">
 
-				</div>
+				<nav style="background-color: #0C3953;" class="navbar navbar-default navbar-fixed-top">
+
+					<div class="navbar-header">
+						
+						<div class="imglogo">
+								
+							<img src= {% static "images/logo.png" %}>
+
+						</div>
+
+					</div>
+				</nav>
+
+
 
 			</header>
-			<!--fim do header -->
+			<!-- fim do container header -->
 
 			<!--tela de login -->
-			<div class="container">
-					
-				<form action="{% url 'django.contrib.auth.views.login' %} " method="post" name="login" class="form-signin">
-				{% csrf_token %}
+			<div style="margin-top: 10%;" class="container">
 
-					<h3 id="cortexto" class="heading">Controle de Provas</h3>
-					
+				<div id="loginalign" class="panel panel-primary">
 
-					<div class="alert alert-warning" id="alert" style="display: none;">
- 				 		<strong>Erro! </strong>Login e senha incorretos.
+					<div class="panel-heading">
+
+						<h3 id="cortexto" style="text-align: center;">Controle de Provas</h3>
+
 					</div>
-					{% if form.errors %}
+
+						<form class="panel-body" action="{% url 'django.contrib.auth.views.login' %} " method="post" name="login" class="form-signin">
+						{% csrf_token %}	
+
+							<div class="alert alert-danger" id="alert" style="display: none;">
+		 				 		<strong>Erro! </strong>Login e senha incorretos.
+							</div>
+
+
+							{% if form.errors %}
 					<div class="form-group">
-					     <input type="login"  onfocus ="enviardados()" onkeypress ="ocultAlert()" onclick="ocultAlert()"autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }}>
+					     <input type="login"  onfocus ="enviardados()" onkeypress ="ocultAlert()" onclick="ocultAlert()"autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }} 
 
 					</div>	
 					{% else %}
 
 					<div class="form-group">
-					     <input type="login" onclick="ocultAlert()" autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }} >
+					     <input type="login" onclick="ocultAlert()" autofocus required="required" class="form-control" id="inputPassword" placeholder="Digite seu login" {{ form.username }} 
 
 					</div>
 					{% endif %}
+										
+							<div class="form-group">
+								<input type="password" onkeypress ="ocultAlert()" required="required" class="form-control" id="inputPassword" placeholder="Digite sua senha" {{ form.password }}
+							</div>
 								
-					<div class="form-group">
-						<input type="password" onkeypress ="ocultAlert()" required="required" class="form-control" id="inputPassword" placeholder="Digite sua senha" {{ form.password }} >
-					</div>
-									  
-					<button id="button"    type="submit" class="btn btn-warning btn-lg">Entrar</button>
+							<div class="form-group">			  
+								<button id="button" style="width: 100%;" type="submit" class="btn btn-success btn-lg">Entrar</button>
+							</div>
 
-				</form>
-				
+							<div class="form-group">
+								<label><a href="#">Esqueci minha senha</a></label>
+							</div>
+
+						</form>
+
+				</div>
 
 			</div>
 			<!-- fim da tela login -->
@@ -85,12 +107,12 @@
 						
 	</body>
 
-	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    	<!-- chamando JS -->
-   	<script src={% static "js/bootstrap.js" %}></script>
+  	<script src={% static "js/bootstrap.js" %}></script>
    	<script type="text/javascript">
+
    		function enviardados(){
  			document.getElementById("alert").style.display = "block";
 			}
@@ -98,6 +120,8 @@
  		function ocultAlert(){
  			document.getElementById("alert").style.display = "none";
  		}
+		
+		
 
    	</script>
 

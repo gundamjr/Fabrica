@@ -16,7 +16,7 @@ class Professor(models.Model):
 class Curso(models.Model):
 	Curso_id=models.AutoField(primary_key=True,auto_created=True)
 	nome=models.CharField(max_length=60)
-	turma=models.CharField(max_length=1)
+	turma=models.CharField(max_length=1,null=True)
 
 
 class status(models.Model):

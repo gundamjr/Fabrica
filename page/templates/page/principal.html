@@ -16,8 +16,12 @@
 
   <a href="{% url 'page.views.cadastro_Disciplina' %}"><input type="button"  value="Cadastrar Disciplina" ></a>
 
+  <a href="{% url 'page.views.some_view' %}"><input type="button"  value="relatorio" ></a>
+
+  <a href="{% url 'page.views.consulta' %}"><input type="button"  value="Consulta" ></a>
 
   <a href="{% url 'django.contrib.auth.views.logout' %}"><input type="button"  value="sair" ></a>
+
   <br/>
   <table border="1px" style="al">
   <thead>
@@ -49,6 +53,7 @@
 </tbody>
 </table>
   <br/>
+
 <table border="1px" style="al">
   <thead>
   <tr>
@@ -81,29 +86,42 @@
 <table border="1px" style="al">
   <thead>
   <tr>
-    <th colspan = "4" style="text-align: center;">Prova</th>
+    <th colspan = "6" style="text-align: center;">Prova</th>
   </tr>
   <tr>
     <th>Ações</th>
+    <th>Professor</th>
+    <th>Disciplina</th>
     <th>Data Prova</th>
     <th>Data Limite</th>
-    <th>Estagio</th>
+    <th>Status</th>
+    <th>Estágio</th>
   </tr>
   </thead>
   <tbody>
-{% for prova in provas %}
+  {% for dp in Disciplinas_professor %}
+{% if dp.Disciplina_id.id_prova != NULL %}
     <tr>
     <div>
     <td>
-     <a class="btn btn-default" href="{% url 'page.views.editar_Prova' pk=prova.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-    <a class="btn btn-default" href="{% url 'page.views.excluir_Prova' pk=prova.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+    <a class="btn btn-default" href="{% url 'page.views.editar_Prova' pk=dp.pk %}"><span class="glyphicon glyphicon-pencil"></span></>
+    <a class="btn btn-default" href="{% url 'page.views.excluir_Prova' pk=dp.Disciplina_id.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
     </td>
-        <td>{{ prova.data_prova }}</td>   
-        <td>{{ prova.data_limite}}</td>
-        <td>{{ prova.estagio}}</td>
+         <td>{{ dp.Professor_id.nome }}</td>   
+        <td>{{ dp.Disciplina_id.nome }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
+        {% if Disciplina_id.id_status.devolucao %}
+        <td>Entregue!</td>
+        {% else %}
+        <td>Não entregue!</td>
+        {% endif %}
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
     </div>
     </tr>
+{% endif %}
 {% endfor %}
+
 </tbody>
 </table>
 

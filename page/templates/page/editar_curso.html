@@ -17,7 +17,7 @@
 
   </head>
 
-  <body>
+  <body onload="enviardados();">
 
     <!-- container da página toda -->
     <div class="container-desktop">
@@ -96,7 +96,7 @@
                   <!-- links do dropdown -->
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'page.views.cadastro_Prova' %}">Cadastrar</a></li>
-                    <li><a href="alterar_prova.html">Alterar</a></li>
+                    <li><a href="{% url 'page.views.tabela_prova' %}">Alterar</a></li>
                   </ul> <!-- dropdown menu -->
                 </li> <!-- dropdown -->               
                 <li id="links"><a href="{% url 'django.contrib.auth.views.logout' %}">Sair</a></li>
@@ -108,39 +108,33 @@
           
           </div>
           <!-- fim do container menu de navegação -->
-
-          <!--container do formulário e do nome da página -->
+<!--container do formulário e do nome da página -->
           <div style="margin-top: 2%;" class="container">
 
               <!-- titulo da tela -->
-              <h3 id="cortexto" style="text-align: center;">Cadastrar Curso</h3>
+              <h3 id="cortexto" style="text-align: center;">Alterar Curso</h3>
               
-              <form method="POST" style="margin-top: 2%;" class="form-group row" >
+              <form style="margin-top: 2%;" class="form-group row" method="POST">
               {% csrf_token %}
                 
-                              <ul id="cortexto" style="list-style-type: none;">
+                <ul id="cortexto" style="list-style-type: none;">
     
                     <li class="col-md-6">
                         <label for="exampleInputEmail1">Curso</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome do curso" name="nome">
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome do curso" name="nome" value="{{post.nome}}">
                       </li>
                       <li class="col-md-2">
                       </li>
                           
                       <li class="col-md-1">
                         <label for="exampleInputEmail1">Turma</label>
-                        <select class="form-control" name="turma">
-                      <option value="A">A</option>
-                      <option value="B">B</option>
-                      <option value="C">C</option>
-                      <option value="D">D</option>
-                      <option value="E">E</option>
+                        <select class="form-control" id="turma" name="turma">
                     </select> 
                       </li> 
                       <li class="col-md-2">
                       </li>                           
                       <li style="margin-top: 2.1%;" class="col-md-3">
-                      <input style="width: 100%;" type="submit" class="btn btn-primary" id="exampleInputEmail1" value="Cadastrar">
+                      <input style="width: 100%;" type="submit" class="btn btn-primary" id="exampleInputEmail1" value="Alterar">
                       </li>
                     </ul>
 
@@ -150,8 +144,64 @@
           <!-- fim do container formulário -->
 
     </div>
-    <!-- fim do container da página toda -->
-
   </body>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- chamando JS -->
+    <script src={% static "js/bootstrap.js" %}></script>
+    <script type="text/javascript">
+
+      function enviardados(){
+      var nome = document.getElementById("turma");
+     for(i=1;i<nome.length;i=i+1){
+     nome.remove(i);
+      }
+     for (var i = 0,j=0; i<=6; i++) {
+        if (i==0) {
+          var opt = document.createElement("option")
+          opt.value = "{{post.turma}}";
+          opt.text = "{{post.turma }}";
+          nome.add(opt, nome.options[0]);
+        }
+        if (i==2) {
+         var opt = document.createElement("option")
+          opt.value = "A";
+          opt.text = "A";
+          nome.add(opt, nome.options[2]);
+ 
+        }   
+
+        if (i==3) {
+         var opt = document.createElement("option")
+          opt.value = "B";
+          opt.text = "B";
+          nome.add(opt, nome.options[3]); 
+        }
+
+        if (i==4) {
+         var opt = document.createElement("option")
+          opt.value = "C";
+          opt.text = "C";
+          nome.add(opt, nome.options[4]);
+        }
+        if (i==5) {
+         var opt = document.createElement("option")
+          opt.value = "D";
+          opt.text = "D";
+          nome.add(opt, nome.options[5]);
+        }
+        if (i==6) {
+         var opt = document.createElement("option")
+          opt.value = "E";
+          opt.text = "E";
+          nome.add(opt, nome.options[6]);
+        }         
+      }
+         
+      }
+    
+    
+
+    </script>
 
 </html>

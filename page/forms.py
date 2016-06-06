@@ -33,7 +33,7 @@ class PostStatus(forms.ModelForm):
 
     class Meta:
         model = status
-        fields = ('devolucao', 'data_devolucao',)
+        fields = ()
 
 class PostDisciplina(forms.ModelForm):
 

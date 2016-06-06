@@ -5,106 +5,160 @@
   <head>
 
     <meta charset="utf-8">
-    <title>Cadastro</title>
+    <title>Professor</title>
     <!-- chamando o bootstrap -->
     <link href= {% static "css/bootstrap.min.css" %} rel="stylesheet">
-    <!-- chamando a folha de estilo-->
-    <link rel="stylesheet" type="text/css" href= {% static "css/style.css" %}>
+      <!-- chamando a folha de estilo-->
+      <link rel="stylesheet" type="text/css" href= {% static "css/style.css" %}>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- chamando JS -->
+      <script src={% static "js/bootstrap.js" %}></script>
+
   </head>
 
-  <!-- container com a logo -->
-  <body  class="container-fluid" style="background-color: #241858;">
+  <body>
 
-    <header class="container-fluid">
-        
-      <div class="imglogo">
-          
-      <img src= {% static "images/logo.png" %}>
-      </div>
+    <!-- container da página toda -->
+    <div class="container-desktop">
 
-    </header>
+      <!-- container da header com logo -->
+      <header class="container-fluid">
 
+        <nav style="background-color: #0C3953;" class="navbar navbar-default navbar-fixed-top">
 
-        <div class="container">
-          <ul id="links" class="nav nav-pills">
-              <li role="presentation"><a href="#">Cadastrar</a></li>
-              <li role="presentation"><a href="#">Alterar</a></li>
-              <li role="presentation"><a href="#">Remover</a></li>
-          </ul>
-        </div>
-
-      <!-- titulo da tela -->
-      <h3 id="cortexto" style="text-align: center;">Cadastro de Professor</h3>
-
-      <!--Sidebar - menu lateral -->
-      
-
-        <div class="col-md-3" id="sidebar">
-            <ul style="margin-top: 5%" id="sidebar" class="nav nav-pills nav-stacked" style="max-width: 200px;">
-               
-                <li><a href="#"><span></span>  Professor</a></li>
-                <li><a href="#"><span></span>  Consulta</a></li>
-                <li><a href="{% url 'django.contrib.auth.views.logout' %}"><span></span>  Sair</a></li>
-                
-            </ul>
-        </div>
-
-          <!--container para organizar automaticamente-->
-          <div class="container-formulario col-md-8">
-            <form method="POST" class="form-group row" id="formargin">
-            {% csrf_token %}
-              
-              <ul id="cortexto" class="inputs" style="list-style-type: none;">
-                  <li id="alm" class="col-md-3">
-                     <label for="id_subject">Nome</label>
-    				 <input id="id_subject" class="form-control" type="text" name="nome"  />   
-                  </li>
-                
-                <li id="alm" class="col-md-3">
-                    <label for="id_subject">Matricula</label>
-    				<input id="id_subject" class="form-control" type="text" name="matricula" maxlength="100" />
-                  </li>
-                
-                <li id="alm1" class="col-md-3">
-					<label for="id_subject">Email</label>
-    				<input id="id_subject" class="form-control" type="text" name="email" maxlength="100" />
-                     
-                <li id="alm1" class="col-md-3">
-                    <label for="exampleInputEmail1">Disciplina</label>
-                    <select name="Disciplina_id" id="hall" class="form-control">
-                    {% for post in disciplinas %}
-                      <option value="{{ post.id_disciplina }}">{{ post.nome }}</option>
-                    {% endfor %}
-                    </select>
-
-                <li class="col-md-3">
-                  <input id="buttonajust" type="submit" class="btn btn-primary" id="exampleInputEmail1">
-                  </li>
-
-                 <li class="col-md-3">
-                  <a href="{% url 'page.views.principal' %}"><input id="buttonajust" type="button" class="btn btn-primary"  value="Voltar" ></a>
-                  </li> 
-                </ul>
-
-            </form>
+          <div class="navbar-header">
             
-          </div>
+            <div class="imglogo">
+                
+              <img src= {% static "images/logo.png" %}>
 
-      </div>
-    
+            </div>
+
+          </div>
+        </nav>
+
+
+
+      </header>
+      <!-- fim do container header -->
+
+          <!-- container do menu de navegação -->
+          <div class="container">
+            
+            <div id="navbar" class="navbar-collapse collapse">
+
+              <ul class="nav nav-pills">
+                
+                <li id="links"><a href="{% url 'page.views.consulta' %}">Consulta</a></li>
+                <li id="links" class="dropdown">
+                  <a href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button" aria-haspopup="true" 
+                  aria-example="false">Professor</a>
+                  <!-- links do dropdown -->
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'page.views.cadastro' %}">Cadastrar</a></li>
+                    <li><a href="{% url 'page.views.tabela_professor' %}">Alterar</a></li>
+                  </ul> <!-- dropdown menu -->
+                </li> <!-- dropdown -->
+                <li id="links" class="dropdown">
+                  <a href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button" aria-haspopup="true" 
+                  aria-example="false">Disciplina</a>
+                  <!-- links do dropdown -->
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'page.views.cadastro_Disciplina' %}">Cadastrar</a></li>
+                    <li><a href="{% url 'page.views.tabela_disciplina' %}">Alterar</a></li>
+                  </ul> <!-- dropdown menu -->
+                </li> <!-- dropdown -->
+                <li id="links" class="dropdown">
+                  <a href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button" aria-haspopup="true" 
+                  aria-example="false">Curso</a>
+                  <!-- links do dropdown -->
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'page.views.cadastro_curso' %}">Cadastrar</a></li>
+                    <li><a href="{% url 'page.views.tabela_curso' %}">Alterar</a></li>
+                  </ul> <!-- dropdown menu -->
+                </li> <!-- dropdown -->
+                <li id="links" class="dropdown">
+                  <a href="#"
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button" aria-haspopup="true" 
+                  aria-example="false">Prova</a>
+                  <!-- links do dropdown -->
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'page.views.cadastro_Prova' %}">Cadastrar</a></li>
+                    <li><a href="{% url 'page.views.tabela_prova' %}">Alterar</a></li>
+                  </ul> <!-- dropdown menu -->
+                </li> <!-- dropdown -->               
+                <li id="links"><a href="{% url 'django.contrib.auth.views.logout' %}">Sair</a></li>
+
+              </ul>
+
+            </div>
+
+          
+          </div>
+          <!-- fim do container menu de navegação -->
+
+          <!--container do formulário e do nome da página -->
+          <div style="margin-top: 2%;" class="container">
+
+              <!-- titulo da tela -->
+              <h3 id="cortexto" style="text-align: center;">Cadastrar Professor</h3>
+              
+              <form method="POST" style="margin-top: 2%;" class="form-group row" >
+              {% csrf_token %}
+                
+                <ul id="cortexto" style="list-style-type: none;">
+                    <li class="col-md-8">
+                      <label for="exampleInputEmail1">Professor</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome do professor"  name="nome" >
+                    </li>
+                  <li class="col-md-2">             
+                    </li>
+                    <li class="col-md-3">
+                      <label for="exampleInputEmail1">Matrícula</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite a matrícula" name="matricula">
+                    </li>
+                  <li class="col-md-6">
+                      <label for="exampleInputEmail1">Disciplina</label>
+                      <select name="Disciplina_id" id="hall" class="form-control">
+                              {% for post in disciplinas %}
+                                  <option value="{{ post.id_disciplina }}">{{ post.nome }}</option>
+                              {% endfor %}
+                            </select>
+                    </li>
+                  <li class="col-md-6">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Digite o nome da disciplina" name="email">
+                    </li>
+                    <li class="col-md-2">             
+                    </li>
+                    <li style="margin-top: 2.1%;" class="col-md-3">
+                    <input style="width: 100%;" type="submit" class="btn btn-primary" id="exampleInputEmail1">
+                    </li>
+                    <li class="col-md-3">
+                  <a href="{% url 'page.views.principal' %}"><input id="buttonajust" type="button" class="btn btn-primary"  value="Voltar" ></a>
+                  </li>
+                  </ul>
+
+              </form>
+
+          </div>
+          <!-- fim do container formulário -->
+
     </div>
+    <!-- fim do container da página toda -->
 
   </body>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- chamando JS -->
-    <script src={% static "js/bootstrap.js" %}></script>
-    <script type="text/javascript">
-      function enviardados(){
-        var nome = document.getElementById("hall1");
-          alert("Obrigado sr(a) " + nome.value + ' os seus dados foram encaminhados com sucesso');
-      }
-    </script>
-
 
 </html>
