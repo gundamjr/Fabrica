@@ -124,14 +124,81 @@
     <th>Professor</th>
     <th>Disciplina</th>
     <th>Data Prova</th>
-    <th>Data Limite</th>
-    <th>Status</th>
-    <th>Data da devolução</th>    
     <th>Estágio</th>
+    <th>Data Limite</th>
+    <th>Data da devolução</th>   
+        <th>Status</th>
     <th>Ações</th>        
   </tr>
   </thead>
   <tbody>
+  {% if aux %}  
+  {% for dp in d_p %}
+{% if dp.Disciplina_id.id_prova != NULL %}
+    <tr>
+    <div>
+         <td>{{ dp.Professor_id.nome }}</td>   
+        <td>{{ dp.Disciplina_id.nome }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
+        <td>{{dp.Disciplina_id.id_prova.id_status.data_devolucao}} </td>
+        <td> Devolvido Dentro do prazo</td>
+        <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
+    </div>
+    </tr>
+    {% endif %}
+{% endfor %}
+  {% for dp in d_p2 %}
+{% if dp.Disciplina_id.id_prova != NULL %}
+    <tr>
+    <div>
+         <td>{{ dp.Professor_id.nome }}</td>   
+        <td>{{ dp.Disciplina_id.nome }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
+        <td>  </td>
+        <td> A entregar Dentro do prazo</td>
+        {% endif %}
+        <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
+    </div>
+    </tr>
+{% endfor %}
+  {% for dp in d_p3 %}
+{% if dp.Disciplina_id.id_prova != NULL %}
+    <tr>
+    <div>
+         <td>{{ dp.Professor_id.nome }}</td>   
+        <td>{{ dp.Disciplina_id.nome }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
+        <td>{{dp.Disciplina_id.id_prova.id_status.data_devolucao}} </td>
+        <td> Devolvido Atrasado</td>
+        {% endif %}
+        <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
+    </div>
+    </tr>
+{% endfor %}
+  {% for dp in d_p4 %}
+{% if dp.Disciplina_id.id_prova != NULL %}
+    <tr>
+    <div>
+         <td>{{ dp.Professor_id.nome }}</td>   
+        <td>{{ dp.Disciplina_id.nome }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
+        <td>{{dp.Disciplina_id.id_prova.id_status.data_devolucao}} </td>
+        <td> Devolvido Atrasado</td>
+        {% endif %}
+        <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
+    </div>
+    </tr>
+{% endfor %}
+{% else %}
+
   {% for dp in Disciplinas_professor %}
 {% if dp.Disciplina_id.id_prova != NULL %}
     <tr>
@@ -139,20 +206,22 @@
          <td>{{ dp.Professor_id.nome }}</td>   
         <td>{{ dp.Disciplina_id.nome }}</td>
         <td>{{ dp.Disciplina_id.id_prova.data_prova }}</td>
+        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
         <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
         {% if dp.Disciplina_id.id_prova.id_status.devolucao %}
-        <td> DEvolvido</td>
-        {% else  %}
-        <td> n entregue</td>
-        {% endif %}
         <td>{{dp.Disciplina_id.id_prova.id_status.data_devolucao}} </td>
-        <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
+        <td> Devolvido {{ eca }}</td>
+        {% else  %}
+       <td> </td>
+
+        <td> A Entregar {{aeca}}</td>
+        {% endif %}
         <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
     </div>
     </tr>
     {% endif %}
 {% endfor %}
-
+{% endif %}
 </tbody>
 </table>
 </div>

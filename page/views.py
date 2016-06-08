@@ -17,6 +17,7 @@ from .models import Disciplina_Profesor
 from .models import Disciplina_Curso
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
+from datetime import date
 from reportlab.lib.pagesizes import A4, cm
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -234,35 +235,115 @@ def consulta(request):
 			form = request.POST.get('estagio')
 			form2= request.POST.get('status')
 			if form2=="nulo" and form=="0":
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=True)
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
 
-				return render (request,'page/resultado.html',{'Disciplinas_professor':professores})
+				post2=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=False)
+				vetor2=set()
+				for y in post2:
+					if date.today()<= y.Disciplina_id.id_prova.data_limite:
+						vetor2.add(x)
+
+				post3=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=True)
+				vetor3=set()
+				for x in post3:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao> x.Disciplina_id.id_prova.data_limite:
+						vetor3.add(x)			
+				
+				post4=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=False)
+				vetor4=set()
+				for x in post4:
+					if date.today()> x.Disciplina_id.id_prova.data_limite:
+						vetor4.add(x)
+
+				aux=True
+				return render (request,'page/resultado.html',{'aux':aux,'d_p':vetor,'d_p2':vetor2,'d_p3':vetor3,'d_p4':vetor4})
 			
 			if form2=="nulo" and form!="0":
 				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__estagio__contains=form)
 				return render (request,'page/resultado.html',{'Disciplinas_professor':post})			
 			
-			if form2=="True" or form2=="False" and form=="0":
+			if form2=="True" and form=="0":
 				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=form2)
-				return render (request,'page/resultado.html',{'Disciplinas_professor':post})	
+				stts="Dentro do prazo"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'eca':stts})	
 			
-			if form2=="True" or form2=="False" and form!="0":
+			if form2=="True" and form!="0":
 				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__estagio__contains=form).filter(Disciplina_id__id_prova__id_status__devolucao__icontains=form2)
-				return render (request,'page/resultado.html',{'Disciplinas_professor':post})			
+				stts="Dentro do prazo"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'eca':stts})			
 			
+			if form2=="False" and form=="0":
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=form2)
+				stts="Dentro do prazo"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+						print("destiny gundam")
+						vetor.add(x)
+				
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'aeca':stts})	
+			
+			if form2=="False" and form!="0":
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__estagio__contains=form).filter(Disciplina_id__id_prova__id_status__devolucao__icontains=form2)
+				stts="Dentro do prazo"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'aeca':stts})			
+
 			if form2=="dca" and form=="0":	
 				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=True)
-				for x in professores:
-					if x.Disciplina_id.id_prova.id_status.devolucao ==True:
-						data=x.Disciplina_id.id_prova.data_limite
-						post=post.filter(Disciplina_id__id_prova__id_status__data_devolucao__gt=data)
-				return render (request,'page/resultado.html',{'Disciplinas_professor':post})
+				stts="Atrasado"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao> x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'eca':stts})
 		
 			
 			if form2=="dca" and form!="0":
 				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=True).filter(Disciplina_id__id_prova__estagio__contains=form)
-				for x in professores:
-					post2=post.filter(Disciplina_id__id_prova__id_status__data_devolucao__gt=x.Disciplina_id.id_prova.data_limite)
-				return render (request,'page/resultado.html',{'Disciplinas_professor':post2})
+				stts="Atrasado"
+				vetor=set()
+				for x in post:
+					if x.Disciplina_id.id_prova.id_status.data_devolucao> x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'eca':stts})
+
+			if form2=="aeca" and form=="0":
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=False)
+				vetor=set()
+				for x in post:
+					if date.today()> x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor})
+
+			if form2=="aeca" and form!="0":
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=False).filter(Disciplina_id__id_prova__estagio__contains=form)
+				vetor=set()
+				for x in post:
+					if date.today()> x.Disciplina_id.id_prova.data_limite:
+						vetor.add(x)
+				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor})							
+
+
+
 	return render (request,'page/Tela_consulta.html',{'professores':professores})
 
 @login_required

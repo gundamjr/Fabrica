@@ -96,7 +96,7 @@
                   <!-- links do dropdown -->
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'page.views.cadastro_Prova' %}">Cadastrar</a></li>
-                    <li><a href="alterar_prova.html">Alterar</a></li>
+                    <li><a href="{% url 'page.views.tabela_prova' %}">Alterar</a></li>
                   </ul> <!-- dropdown menu -->
                 </li> <!-- dropdown -->               
                 <li id="links"><a href="{% url 'django.contrib.auth.views.logout' %}">Sair</a></li>
@@ -113,9 +113,9 @@
           <div style="margin-top: 2%;" class="container">
 
               <!-- titulo da tela -->
-              <h3 id="cortexto" style="text-align: center;">Cadastrar Disciplina</h3>
+              <h3 id="cortexto" style="text-align: center;">Cadastrar Prova</h3>
               
-              <form method="POST" style="margin-top: 2%;" class="form-group row" >
+<form method="POST" style="margin-top: 2%;" class="form-group row" >
               {% csrf_token %}
                 
                 <ul id="cortexto" style="list-style-type: none;">
@@ -169,17 +169,19 @@
 
               </form>
 
+
           </div>
           <!-- fim do container formulário -->
 
     </div>
     <!-- fim do container da página toda -->
 
+
   </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+</html>
 
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- chamando JS -->
     <script src={% static "js/bootstrap.js" %}></script>
     <script type="text/javascript">
@@ -187,11 +189,9 @@
         var nome = document.getElementById("professor");
         var selected = nome.options[nome.selectedIndex].value;
         var combo = document.getElementById("disciplina");
-
         for(i=1;i<combo.length;i=i+1){
           combo.remove(i);
         }
-
         {% for post in professores %}
             if({{post.Professor_id.id_professor}}==selected){
               var opt = document.createElement("option")
@@ -205,11 +205,9 @@
         var nome = document.getElementById("disciplina");
         var selected = nome.options[nome.selectedIndex].value;
         var combo = document.getElementById("curso");
-
         for(i=1;i<combo.length;i=i+1){
           combo.remove(i);
         }
-
         {% for post in disciplinas %}
             if({{post.Disciplina_id.id_disciplina}}==selected){
               var opt = document.createElement("option")
@@ -219,6 +217,4 @@
             }
         {% endfor %}        
       }
-    </script>  
-
-</html>    
+    </script> 
