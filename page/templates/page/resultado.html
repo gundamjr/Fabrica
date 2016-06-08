@@ -191,7 +191,7 @@
         <td>{{ dp.Disciplina_id.id_prova.estagio }}</td>
         <td>{{ dp.Disciplina_id.id_prova.data_limite}}</td>
         <td>{{dp.Disciplina_id.id_prova.id_status.data_devolucao}} </td>
-        <td> Devolvido Atrasado</td>
+        <td> A entregar com atraso</td>
         {% endif %}
         <td><a href="{% url 'page.views.mudar_status' pk=dp.Disciplina_id.pk %}"><img src={% static "images/glyphicons-ok.png" %} width="16" height="16"></a></td>
     </div>

@@ -235,17 +235,17 @@ def consulta(request):
 			form = request.POST.get('estagio')
 			form2= request.POST.get('status')
 			if form2=="nulo" and form=="0":
-				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=True)
+				post=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=True)
 				vetor=set()
 				for x in post:
 					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
 						vetor.add(x)
 
-				post2=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao__icontains=False)
+				post2=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=False)
 				vetor2=set()
 				for y in post2:
 					if date.today()<= y.Disciplina_id.id_prova.data_limite:
-						vetor2.add(x)
+						vetor2.add(y)
 
 				post3=Disciplina_Profesor.objects.filter(Disciplina_id__id_prova__id_status__devolucao=True)
 				vetor3=set()
@@ -291,7 +291,7 @@ def consulta(request):
 				stts="Dentro do prazo"
 				vetor=set()
 				for x in post:
-					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+					if date.today()<= x.Disciplina_id.id_prova.data_limite:
 						print("destiny gundam")
 						vetor.add(x)
 				
@@ -302,7 +302,7 @@ def consulta(request):
 				stts="Dentro do prazo"
 				vetor=set()
 				for x in post:
-					if x.Disciplina_id.id_prova.id_status.data_devolucao<= x.Disciplina_id.id_prova.data_limite:
+					if date.today()<= x.Disciplina_id.id_prova.data_limite:
 						vetor.add(x)
 				
 				return render (request,'page/resultado.html',{'Disciplinas_professor':vetor,'aeca':stts})			
